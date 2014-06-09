@@ -22,7 +22,7 @@ class GitInfo(object):
     """
 
     @staticmethod
-    def version():
+    def installed_version():
         """
         Returns the version of the installed git.
         """
@@ -46,10 +46,11 @@ class RepositoryInfo(object):
 
         self.path = path
         self.name = name
+        self.repository_path = "%s/%s" % (self.path, self.name)
 
-    def branch(self):
+    def current_branch(self):
         """
-        Shows current branch.
+        Gets current branch.
         """
 
-        return _run_system_command("git branch", self.path + "/" + self.name).split(' ')[-1]
+        return _run_system_command("git branch", self.repository_path).split(' ')[-1]
