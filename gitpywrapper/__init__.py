@@ -2,8 +2,8 @@
 This module provides python wrappers to native git comma
 """
 
-from gitpywrapper import Git
+from gitpywrapper import GitInfo
 
 __author__ = 'lmiranda'
 
-git = Git()
+git = GitInfo()

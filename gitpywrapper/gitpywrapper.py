@@ -16,9 +16,9 @@ def _run_system_command(command, cwd=None):
     return out.split('\n')[0]
 
 
-class Git(object):
+class GitInfo(object):
     """
-    Git command.
+    Provides info about git software.
     """
 
     @staticmethod
@@ -31,9 +31,9 @@ class Git(object):
         return ret.split(' ')[-1]
 
 
-class Repository(object):
+class RepositoryInfo(object):
     """
-    Git repository.
+    Provides info about a repository.
     """
 
     def __init__(self, path, name):
