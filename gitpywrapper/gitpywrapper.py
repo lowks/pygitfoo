@@ -13,7 +13,7 @@ def _run_system_command(command, cwd=None):
     if err:
         raise Exception(str(err))
 
-    return out.split('\n')[0]
+    return out.split('\n')
 
 
 class GitInfo(object):
@@ -28,7 +28,7 @@ class GitInfo(object):
         """
 
         ret = _run_system_command("git --version")
-        return ret.split(' ')[-1]
+        return ret[0].split(' ')[-1]
 
 
 class RepositoryInfo(object):
@@ -53,4 +53,18 @@ class RepositoryInfo(object):
         Gets current branch.
         """
 
-        return _run_system_command("git branch", self.repository_path).split(' ')[-1]
+        return _run_system_command("git branch", self.repository_path)[0].split(' ')[-1]
+
+    def list_remote_tags(self):
+        """
+        Gets list of tags in the remote.
+        """
+
+        ret = _run_system_command("git ls-remote --tags", self.repository_path)
+        tag_list = []
+        for line in ret:
+            print line
+            if "tags" in line:
+                tag_list.append(line.split("/")[-1])
+
+        return tag_list
