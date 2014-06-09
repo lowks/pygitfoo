@@ -1,34 +1,10 @@
-import subprocess
+"""
+Repository info logic.
+"""
+
+from pygitfoo.system_commands import _run_system_command
 
 __author__ = 'lmiranda'
-
-
-def _run_system_command(command, cwd=None):
-    """
-    Runs a command in the specified directory.
-    """
-
-    p = subprocess.Popen(command.split(' '), stdout=subprocess.PIPE, cwd=cwd)
-    out, err = p.communicate()
-    if err:
-        raise Exception(str(err))
-
-    return out.split('\n')
-
-
-class GitInfo(object):
-    """
-    Provides info about git software.
-    """
-
-    @staticmethod
-    def installed_version():
-        """
-        Returns the version of the installed git.
-        """
-
-        ret = _run_system_command("git --version")
-        return ret[0].split(' ')[-1]
 
 
 class RepositoryInfo(object):
