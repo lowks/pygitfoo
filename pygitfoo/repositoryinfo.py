@@ -44,3 +44,10 @@ class RepositoryInfo(object):
                 tag_list.append(line.split("/")[-1])
 
         return tag_list
+
+    def most_recent_lightweight_tag(self):
+        """
+        Gets the current the most tag in the repository.
+        """
+
+        return _run_system_command("git describe --tags", self.repository_path)[0]
