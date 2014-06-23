@@ -31,8 +31,7 @@ class RepositoryInfo(object):
         
         raw_tags = run_system_command("git tag", self.repository_path) 
         
-        return raw_tags.split('\n')
-        
+        return raw_tags.split('\n')[0:-1]
 
     def current_branch(self):
         """
