@@ -2,7 +2,7 @@
 Repository info logic.
 """
 
-from pygitfoo.system_commands import _run_system_command
+from pygitfoo.system_commands import run_system_command
 
 __author__ = 'lmiranda'
 
