@@ -7,5 +7,5 @@ setup(
     author_email='luistm@gmail.com',
     packages=['pygitfoo', ],
     license='MIT license',
-    long_description=open('README.md').read(),
+    long_description=open('README.rst').read(),
 )
