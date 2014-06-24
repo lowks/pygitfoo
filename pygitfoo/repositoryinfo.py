@@ -68,10 +68,3 @@ class RepositoryInfo(object):
         tag_list = [tag.split('/')[-1] for tag in ret.split('\n') if "/tags/" in tag]
 
         return tag_list
-
-    def most_recent_lightweight_tag(self):
-        """
-        Gets the current the most tag in the repository.
-        """
-
-        return run_system_command("git describe --tags", self.repository_path)[0]
