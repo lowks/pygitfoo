@@ -33,13 +33,18 @@ class RepositoryInfo(object):
         
         return raw_tags.split('\n')[0:-1]
 
+    def _get_raw_branches_to_list(self):
+        raw_branches = run_system_command("git branch", self.repository_path)
+        branches = raw_branches.split('\n')[0:-1]
+
+        return branches
+
     def branch(self):
         """
         Lists local branches.
         """
 
-        raw_branches = run_system_command("git branch", self.repository_path)
-        branches = raw_branches.split('\n')[0:-1]
+        branches = self._get_raw_branches_to_list()
         branches = [branch.strip('  ').strip('* ') for branch in branches]
 
         return branches
@@ -49,7 +54,10 @@ class RepositoryInfo(object):
         Gets current branch.
         """
 
-        return run_system_command("git branch", self.repository_path)[0].split(' ')[-1]
+        branches = self._get_raw_branches_to_list()
+        branch = [branch.strip('* ') for branch in branches if branch.startswith('* ')]
+
+        return branch
 
     def list_remote_tags(self):
         """
