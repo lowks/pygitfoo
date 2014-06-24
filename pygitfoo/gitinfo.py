@@ -2,7 +2,7 @@
 Git command related logic.
 """
 
-from pygitfoo.system_commands import _run_system_command
+from pygitfoo.system_commands import run_system_command
 
 __author__ = 'lmiranda'
 
@@ -18,5 +18,5 @@ class GitInfo(object):
         Returns the version of the installed git.
         """
 
-        ret = _run_system_command("git --version")
+        ret = run_system_command("git --version")
         return ret[0].split(' ')[-1]

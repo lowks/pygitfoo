@@ -7,9 +7,12 @@ import subprocess
 __author__ = 'lmiranda'
 
 
-def _run_system_command(command, cwd=None):
+def run_system_command(command, cwd=None):
     """
     Runs a command in the specified directory.
+    
+    :param command: The command to be executed.
+    :param cwd: The directory were the command should be executed.
     """
 
     p = subprocess.Popen(command.split(' '), stdout=subprocess.PIPE, cwd=cwd)
@@ -17,4 +20,4 @@ def _run_system_command(command, cwd=None):
     if err:
         raise Exception(str(err))
 
-    return out.split('\n')
+    return out
