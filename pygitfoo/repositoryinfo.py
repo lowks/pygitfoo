@@ -59,17 +59,13 @@ class RepositoryInfo(object):
 
         return branch
 
-    def list_remote_tags(self):
+    def ls_remote(self):
         """
-        Gets list of tags in the remote.
+        Gets a list of tags in the remote.
         """
 
-        ret = run_system_command("git ls-remote --tags", self.repository_path)
-        tag_list = []
-        for line in ret:
-            print line
-            if "tags" in line:
-                tag_list.append(line.split("/")[-1])
+        ret = run_system_command("git ls-remote", self.repository_path)
+        tag_list = [tag.split('/')[-1] for tag in ret.split('\n') if "/tags/" in tag]
 
         return tag_list
 
