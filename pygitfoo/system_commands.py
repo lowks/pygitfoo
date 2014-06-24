@@ -20,4 +20,4 @@ def run_system_command(command, cwd=None):
     if err:
         raise Exception(str(err))
 
-    return out.split('\n')
+    return out
