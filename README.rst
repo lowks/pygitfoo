@@ -2,7 +2,7 @@
 PyGitFoo
 ========
 
-:Version: 0.3.0dev
+:Version: 0.4.0dev
 :Download: https://pypi.python.org/pypi/PyGitFoo
 
 

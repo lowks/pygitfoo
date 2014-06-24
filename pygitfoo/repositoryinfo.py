@@ -1,6 +1,7 @@
 """
 Repository info logic.
 """
+from pygitfoo import raw_data_operations
 
 from pygitfoo.system_commands import run_system_command
 
@@ -30,41 +31,32 @@ class RepositoryInfo(object):
         """
         
         raw_tags = run_system_command("git tag", self.repository_path) 
-        
-        return raw_tags.split('\n')[0:-1]
 
-    def _get_raw_branches_to_list(self):
-        raw_branches = run_system_command("git branch", self.repository_path)
-        branches = raw_branches.split('\n')[0:-1]
-
-        return branches
+        return raw_data_operations.process_tags(raw_tags)
 
     def branch(self):
         """
         Lists local branches.
         """
 
-        branches = self._get_raw_branches_to_list()
-        branches = [branch.strip('  ').strip('* ') for branch in branches]
+        raw_branches = run_system_command("git branch", self.repository_path)
 
-        return branches
+        return raw_data_operations.process_branches(raw_branches)
 
     def current_branch(self):
         """
         Gets current branch.
         """
 
-        branches = self._get_raw_branches_to_list()
-        branch = [branch.strip('* ') for branch in branches if branch.startswith('* ')]
+        raw_branches = run_system_command("git branch", self.repository_path)
 
-        return branch
+        return raw_data_operations.process_current_branch(raw_branches)
 
     def ls_remote(self):
         """
         Gets a list of tags in the remote.
         """
 
-        ret = run_system_command("git ls-remote", self.repository_path)
-        tag_list = [tag.split('/')[-1] for tag in ret.split('\n') if "/tags/" in tag]
+        raw_tags = run_system_command("git ls-remote", self.repository_path)
 
-        return tag_list
+        return raw_data_operations.process_ls_remote(raw_tags)
