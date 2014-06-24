@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='PyGitFoo',
-    version='0.3.0dev',
+    version='0.3.2dev',
     author='Luis Miranda',
     author_email='luistm@gmail.com',
     packages=['pygitfoo', ],
