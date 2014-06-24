@@ -33,6 +33,17 @@ class RepositoryInfo(object):
         
         return raw_tags.split('\n')[0:-1]
 
+    def branch(self):
+        """
+        Lists local branches.
+        """
+
+        raw_branches = run_system_command("git branch", self.repository_path)
+        branches = raw_branches.split('\n')[0:-1]
+        branches = [branch.strip('  ').strip('* ') for branch in branches]
+
+        return branches
+
     def current_branch(self):
         """
         Gets current branch.
