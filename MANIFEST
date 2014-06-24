@@ -2,5 +2,7 @@
 setup.py
 pygitfoo/__init__.py
 pygitfoo/gitinfo.py
+pygitfoo/raw_data_operations.py
 pygitfoo/repositoryinfo.py
 pygitfoo/system_commands.py
+pygitfoo/tests.py
