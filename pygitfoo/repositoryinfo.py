@@ -2,7 +2,7 @@
 Repository info logic.
 """
 
-from pygitfoo.system_commands import _run_system_command
+from pygitfoo.system_commands import run_system_command
 
 __author__ = 'lmiranda'
 
@@ -23,24 +23,48 @@ class RepositoryInfo(object):
         self.path = path
         self.name = name
         self.repository_path = "%s/%s" % (self.path, self.name)
+        
+    def tag(self):
+        """
+        List all tags.
+        """
+        
+        raw_tags = run_system_command("git tag", self.repository_path) 
+        
+        return raw_tags.split('\n')[0:-1]
+
+    def _get_raw_branches_to_list(self):
+        raw_branches = run_system_command("git branch", self.repository_path)
+        branches = raw_branches.split('\n')[0:-1]
+
+        return branches
+
+    def branch(self):
+        """
+        Lists local branches.
+        """
+
+        branches = self._get_raw_branches_to_list()
+        branches = [branch.strip('  ').strip('* ') for branch in branches]
+
+        return branches
 
     def current_branch(self):
         """
         Gets current branch.
         """
 
-        return _run_system_command("git branch", self.repository_path)[0].split(' ')[-1]
+        branches = self._get_raw_branches_to_list()
+        branch = [branch.strip('* ') for branch in branches if branch.startswith('* ')]
 
-    def list_remote_tags(self):
+        return branch
+
+    def ls_remote(self):
         """
-        Gets list of tags in the remote.
+        Gets a list of tags in the remote.
         """
 
-        ret = _run_system_command("git ls-remote --tags", self.repository_path)
-        tag_list = []
-        for line in ret:
-            print line
-            if "tags" in line:
-                tag_list.append(line.split("/")[-1])
+        ret = run_system_command("git ls-remote", self.repository_path)
+        tag_list = [tag.split('/')[-1] for tag in ret.split('\n') if "/tags/" in tag]
 
         return tag_list
