@@ -23,20 +23,30 @@ class RepositoryInfo(object):
         self.path = path
         self.name = name
         self.repository_path = "%s/%s" % (self.path, self.name)
+        
+    def tag(self):
+        """
+        List all tags.
+        """
+        
+        raw_tags = run_system_command("git tag", self.repository_path) 
+        
+        return raw_tags.split('\n')
+        
 
     def current_branch(self):
         """
         Gets current branch.
         """
 
-        return _run_system_command("git branch", self.repository_path)[0].split(' ')[-1]
+        return run_system_command("git branch", self.repository_path)[0].split(' ')[-1]
 
     def list_remote_tags(self):
         """
         Gets list of tags in the remote.
         """
 
-        ret = _run_system_command("git ls-remote --tags", self.repository_path)
+        ret = run_system_command("git ls-remote --tags", self.repository_path)
         tag_list = []
         for line in ret:
             print line
@@ -50,4 +60,4 @@ class RepositoryInfo(object):
         Gets the current the most tag in the repository.
         """
 
-        return _run_system_command("git describe --tags", self.repository_path)[0]
+        return run_system_command("git describe --tags", self.repository_path)[0]
